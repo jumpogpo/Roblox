@@ -26,7 +26,7 @@ end
 
 local body = http_request({Url = 'https://httpbin.org/get'; Method = 'GET'}).Body;
 local decoded = game:GetService('HttpService'):JSONDecode(body)
-local hwid_list = {"Syn-Fingerprint", "Krnl"};
+local hwid_list = {"Syn-Fingerprint", "Krnl-Fingerprint"};
 local hwid = "";
 
 for i, v in next, hwid_list do
