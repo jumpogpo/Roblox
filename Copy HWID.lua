@@ -13,13 +13,6 @@ local http_request = http_request;
 
 if syn then
 	http_request = syn.request
-elseif SENTINEL_V2 then
-	function http_request(tb)
-		return {
-			StatusCode = 200;
-			Body = request(tb.Url, tb.Method, (tb.Body or ''))
-		}
-	end
 end
 
 local body = http_request({Url = 'https://httpbin.org/get'; Method = 'GET'}).Body;
