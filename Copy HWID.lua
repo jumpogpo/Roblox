@@ -31,10 +31,9 @@ if hwid then
 	setclipboard(hwid)
     game:GetService("StarterGui"):SetCore("SendNotification", {
        	Title = "Get HWID";
-        Text = Copy HWID Already\nPress Ctrl + V to paste;
-        	Duration = 9999;
-        })
-    end)
+        Text = "Copy HWID Already\nPress Ctrl + V to paste";
+        Duration = 9999;
+    })
 else
 	game:GetService("Players").LocalPlayer:Kick('unable to find hwid')
 end
