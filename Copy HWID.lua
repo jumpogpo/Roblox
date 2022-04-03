@@ -32,7 +32,7 @@ if hwid then
     game:GetService("StarterGui"):SetCore("SendNotification", {
        	Title = "Get HWID Success";
         Text = "Copy HWID Already\nPress Ctrl + V to paste";
-        Duration = 9999;
+        Duration = 10;
     })
 else
 	game:GetService("Players").LocalPlayer:Kick('unable to find hwid')
