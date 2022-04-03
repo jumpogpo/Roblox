@@ -31,7 +31,7 @@ if hwid then
 	setclipboard(hwid)
     game:GetService("StarterGui"):SetCore("SendNotification", {
        	Title = "Get HWID";
-        Text = Copy HWID Already\nPress Ctrl + V to paste;
+        Text = "Copy HWID Already\nPress Ctrl + V to paste";
         Duration = 9999;
     })
 else
