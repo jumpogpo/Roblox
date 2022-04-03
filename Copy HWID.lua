@@ -20,8 +20,6 @@ elseif SENTINEL_V2 then
 			Body = request(tb.Url, tb.Method, (tb.Body or ''))
 		}
 	end
-elseif request then
-	http_request = request
 end
 
 local body = http_request({Url = 'https://httpbin.org/get'; Method = 'GET'}).Body;
