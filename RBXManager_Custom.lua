@@ -25,8 +25,6 @@ local function GET(Method, Account, ...)
         Url = Url .. '&Password=' .. WebserverSettings.Password
     end
     
-    print(Url)
-    
     local Response = Request {
         Method = 'GET',
         Url = Url
@@ -34,7 +32,7 @@ local function GET(Method, Account, ...)
 
     if Response.StatusCode ~= 200 then return false end
 
-    return Response.Body
+    return Url
 end
 
 local function POST(Method, Account, Body, ...)
