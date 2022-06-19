@@ -25,6 +25,8 @@ local function GET(Method, Account, ...)
         Url = Url .. '&Password=' .. WebserverSettings.Password
     end
     
+    print(Url)
+    
     local Response = Request {
         Method = 'GET',
         Url = Url
@@ -46,8 +48,6 @@ local function POST(Method, Account, Body, ...)
     if WebserverSettings.Password and #WebserverSettings.Password >= 6 then
         Url = Url .. '&Password=' .. WebserverSettings.Password
     end
-    
-    print(Url)
   
     local Response = Request {
         Method = 'POST',
