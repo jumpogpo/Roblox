@@ -4,7 +4,7 @@ local Account = {} Account.__index = Account
 
 local WebserverSettings = {
     Port = '7963',
-    Password = getenv().Password or '123456789'
+    Password = getgenv().Password or '123456789'
 }
 
 function WebserverSettings:SetPort(Port) self.Port = Port end
