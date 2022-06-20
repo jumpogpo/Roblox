@@ -4,7 +4,7 @@ local Account = {} Account.__index = Account
 
 local WebserverSettings = {
     Port = '7963',
-    Password = getgenv().Password or '123456789'
+    Password = getenv().Password or '123456789'
 }
 
 function WebserverSettings:SetPort(Port) self.Port = Port end
@@ -70,6 +70,23 @@ function Account.new(Username, SkipValidation)
     return self
 end
 
+function Account.GetAccounts()
+    local Url = 'http://localhost:' .. WebserverSettings.Port .. '/GetAccounts'
+
+    if WebserverSettings.Password and #WebserverSettings.Password >= 6 then
+        Url = Url .. '?Password=' .. WebserverSettings.Password
+    end
+
+    local Response = Request {
+        Method = 'GET',
+        Url = Url
+    }
+
+    if Response.StatusCode ~= 200 then return false end
+
+    return string.split(Response.Body, ',')
+end
+
 function Account:GetCSRFToken() return GET('GetCSRFToken', self.Username) end
 
 function Account:BlockUser(Argument)
@@ -92,23 +109,6 @@ function Account:UnblockUser(Argument)
     end
 end
 
-function Account:GetAccounts()
-    local Url = 'http://localhost:' .. WebserverSettings.Port .. '/GetAccounts'
-
-    if WebserverSettings.Password and #WebserverSettings.Password >= 6 then
-        Url = Url .. '?Password=' .. WebserverSettings.Password
-    end
-
-    local Response = Request {
-        Method = 'GET',
-        Url = Url
-    }
-
-    if Response.StatusCode ~= 200 then return false end
-
-    return string.split(Response.Body, ',')
-end
-
 function Account:GetBlockedList() return GET('GetBlockedList', self.Username) end
 function Account:UnblockEveryone() return GET('UnblockEveryone', self.Username) end
 
@@ -127,7 +127,7 @@ function Account:SetRecommendedServer(PlaceId) return GET('SetServer', self.User
 
 function Account:ImportCookie(Token) return GET('ImportCookie', 'Cookie=' .. Token) end
 function Account:GetCookie() return GET('GetCookie', self.Username) end
-function Account:LaunchAccount(PlaceId, JobId, tostring(FollowUser), tostring(JoinVip)) -- if you want to follow someone, PlaceId must be their user id
+function Account:LaunchAccount(PlaceId, JobId, FollowUser, JoinVip) -- if you want to follow someone, PlaceId must be their user id
     return GET('LaunchAccount', self.Username, 'PlaceId=' .. PlaceId, JobId and ('JobId=' .. JobId), FollowUser and 'FollowUser=true', JoinVip and 'JoinVIP=true')
 end
 
