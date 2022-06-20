@@ -1,10 +1,10 @@
--- DOCUMENTATION: https://ic3w0lf22.gitbook.io/roblox-account-manager/
+-- CUSTOM: VIPER || バイパー#9615
 
 local Account = {} Account.__index = Account
 
 local WebserverSettings = {
     Port = '7963',
-    Password = ''
+    Password = getenv().Password or '123456789'
 }
 
 function WebserverSettings:SetPort(Port) self.Port = Port end
@@ -24,7 +24,7 @@ local function GET(Method, Account, ...)
     if WebserverSettings.Password and #WebserverSettings.Password >= 6 then
         Url = Url .. '&Password=' .. WebserverSettings.Password
     end
-    
+
     local Response = Request {
         Method = 'GET',
         Url = Url
@@ -32,7 +32,7 @@ local function GET(Method, Account, ...)
 
     if Response.StatusCode ~= 200 then return false end
 
-    return Url
+    return Response.Body
 end
 
 local function POST(Method, Account, Body, ...)
@@ -81,6 +81,7 @@ function Account:BlockUser(Argument)
         return self:BlockUser(tostring(Argument))
     end
 end
+
 function Account:UnblockUser(Argument)
     if typeof(Argument) == 'string' then
         return GET('UnblockUser', self.Username, 'UserId=' .. Argument)
@@ -90,6 +91,24 @@ function Account:UnblockUser(Argument)
         return self:BlockUser(tostring(Argument))
     end
 end
+
+function Account:GetAccounts()
+    local Url = 'http://localhost:' .. WebserverSettings.Port .. '/GetAccounts'
+
+    if WebserverSettings.Password and #WebserverSettings.Password >= 6 then
+        Url = Url .. '?Password=' .. WebserverSettings.Password
+    end
+
+    local Response = Request {
+        Method = 'GET',
+        Url = Url
+    }
+
+    if Response.StatusCode ~= 200 then return false end
+
+    return string.split(Response.Body, ',')
+end
+
 function Account:GetBlockedList() return GET('GetBlockedList', self.Username) end
 function Account:UnblockEveryone() return GET('UnblockEveryone', self.Username) end
 
