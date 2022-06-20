@@ -1,4 +1,7 @@
--- CUSTOM: VIPER || バイパー#9615
+--[[
+    Main Source: https://raw.githubusercontent.com/ic3w0lf22/Roblox-Account-Manager/master/RAMAccount.lua
+    Modify Source By: VIPER(バイパー#9615)
+]]
 
 local Account = {} Account.__index = Account
 local WebServerPassword = getenv().Password 
@@ -132,7 +135,7 @@ function Account:SetRecommendedServer(PlaceId) return GET('SetServer', self.User
 
 function Account:ImportCookie(Token) return GET('ImportCookie', 'Cookie=' .. Token) end
 function Account:GetCookie() return GET('GetCookie', self.Username) end
-function Account:LaunchAccount(PlaceId, JobId, FollowUser, JoinVip) -- if you want to follow someone, PlaceId must be their user id
+function Account:LaunchAccount(PlaceId, JobId, FollowUser, JoinVip)
     return GET('LaunchAccount', self.Username, 'PlaceId=' .. PlaceId, JobId and ('JobId=' .. JobId), FollowUser and 'FollowUser=true', JoinVip and 'JoinVIP=true')
 end
 
