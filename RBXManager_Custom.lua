@@ -1,10 +1,15 @@
 -- CUSTOM: VIPER || バイパー#9615
 
 local Account = {} Account.__index = Account
+local WebServerPassword = getenv().Password 
+
+if WebServerPassword == nil then
+    WebServerPassword = '123456789'
+end
 
 local WebserverSettings = {
     Port = '7963',
-    Password = getenv().Password or '123456789'
+    Password = WebServerPassword
 }
 
 function WebserverSettings:SetPort(Port) self.Port = Port end
