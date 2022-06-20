@@ -4,7 +4,7 @@
 ]]
 
 local Account = {} Account.__index = Account
-local WebServerPassword = getenv().Password 
+local WebServerPassword = getgenv().Password 
 
 if WebServerPassword == nil then
     WebServerPassword = '123456789'
